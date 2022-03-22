@@ -1,8 +1,13 @@
 package com.victorgvc.multilanguagespring.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -36,4 +41,10 @@ public class Item {
     @Column(name = "it_category")
     @ManyToOne
     private Category category;
+
+    @ManyToMany
+    @JoinTable(name = "project_item", 
+        joinColumns = @JoinColumn(name = "pi_item"), 
+        inverseJoinColumns = @JoinColumn(name = "pi_project"))
+    private List<Project> projects;
 }

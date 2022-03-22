@@ -2,7 +2,6 @@ package com.victorgvc.multilanguagespring.model.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -50,6 +49,6 @@ public class User {
     private String photo;
 
     @OneToMany(mappedBy = "user")
-    @JoinColumn(name = "pro_user") // TODO: lembrar de testar
+    @JoinColumn(name = "pro_user") // todo: lembrar de testar
     private List<Project> projects;
 }

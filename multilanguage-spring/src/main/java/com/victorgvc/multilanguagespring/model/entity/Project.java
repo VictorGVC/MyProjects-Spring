@@ -1,8 +1,11 @@
 package com.victorgvc.multilanguagespring.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -42,4 +45,7 @@ public class Project {
     @Column(name = "pro_user")
     @ManyToOne
     private User user;
+
+    @ManyToMany(mappedBy = "projects")
+    private List<Item> items;
 }
