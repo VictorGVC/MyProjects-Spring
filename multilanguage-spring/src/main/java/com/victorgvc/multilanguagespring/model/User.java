@@ -1,4 +1,4 @@
-package com.victorgvc.multilanguagespring.model.entity;
+package com.victorgvc.multilanguagespring.model;
 
 import java.util.List;
 
