@@ -1,8 +1,13 @@
-package com.victorgvc.multilanguagespring.model.entity;
+package com.victorgvc.multilanguagespring.model;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -23,8 +28,9 @@ import lombok.ToString;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "us_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "us_username")
     private String username;
@@ -43,4 +49,9 @@ public class User {
 
     @Column(name = "us_photo")
     private String photo;
+
+    @OneToMany(mappedBy = "user")
+    private List<Project> projects;
+
+    private String confirmPassword;
 }
