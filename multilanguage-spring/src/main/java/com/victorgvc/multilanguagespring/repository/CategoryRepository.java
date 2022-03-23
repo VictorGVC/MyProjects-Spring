@@ -1,9 +1,0 @@
-package com.victorgvc.multilanguagespring.repository;
-
-import com.victorgvc.multilanguagespring.model.Category;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface CategoryRepository extends JpaRepository<Category, Integer>{
-    
-}
