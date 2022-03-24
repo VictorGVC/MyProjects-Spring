@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "category")
+@Table(name = "category", schema = "public")
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -27,7 +27,7 @@ public class Category {
     
     @Id
     @Column(name = "cat_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "cat_name")
     private String name;
