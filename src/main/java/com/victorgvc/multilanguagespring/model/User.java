@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -18,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -39,7 +40,7 @@ public class User {
     private String password;
 
     @Column(name = "us_admin")
-    private boolean admin;
+    private Boolean admin;
 
     @Column(name = "us_github")
     private String github;
@@ -53,5 +54,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Project> projects;
 
+    @Transient
     private String confirmPassword;
 }
