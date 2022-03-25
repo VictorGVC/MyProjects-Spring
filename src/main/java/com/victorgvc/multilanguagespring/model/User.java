@@ -41,7 +41,7 @@ public class User {
     private String password;
 
     @Column(name = "us_admin")
-    private Boolean admin;
+    private Boolean admin = false;
 
     @Column(name = "us_github")
     private String github;
