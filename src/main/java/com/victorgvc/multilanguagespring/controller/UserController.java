@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.victorgvc.multilanguagespring.model.User;
 import com.victorgvc.multilanguagespring.service.UserService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,26 +30,26 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public List<User> get() {
+    public List<?> get() {
         try {
             return service.get();
         } catch (Exception e) {
-            List<User> error = new ArrayList<>();
-            error.add(new User(500, e.getMessage()));
+            List<ResponseEntity<String>> error = new ArrayList<>();
+            error.add(new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500)));
             return error;
         }
     }
 
     @GetMapping("/user/{id}")
-    public User getById(@PathVariable (value = "id") int id) {
+    public Object getById(@PathVariable (value = "id") int id) {
         try {
             Optional<User> user = service.getById(id);
             if(user.isPresent())
                 return user.get();
             else
-                return new User(500, "User do not found");
+                return new ResponseEntity<>("User do not found!", HttpStatus.valueOf(500));
         } catch (Exception e) {
-            return new User(500, e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 }
