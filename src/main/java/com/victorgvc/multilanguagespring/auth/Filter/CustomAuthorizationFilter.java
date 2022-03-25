@@ -45,8 +45,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter{
                     filterChain.doFilter(request, response);
                 }
             } catch (Exception e) {
-                logger.error(e);
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setStatus(401);
+                response.getWriter().println(e);
             }
         }
     }
