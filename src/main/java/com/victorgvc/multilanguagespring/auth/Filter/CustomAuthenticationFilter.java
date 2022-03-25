@@ -1,4 +1,4 @@
-package com.victorgvc.multilanguagespring.config.Filter;
+package com.victorgvc.multilanguagespring.auth.Filter;
 
 import java.io.IOException;
 import java.util.Date;
@@ -44,9 +44,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User)authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes()); //TODO remember to use heroku secret
         Date now = new Date(System.currentTimeMillis());
-        Date twoHours = new Date(System.currentTimeMillis() *1000 * 60 * 60 * 2);
+        Date twoHours = new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 2));
 
-        
         String token = JWT.create()
             .withSubject(user.getUsername())
             .withIssuedAt(now)

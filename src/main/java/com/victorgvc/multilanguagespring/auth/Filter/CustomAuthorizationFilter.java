@@ -1,4 +1,4 @@
-package com.victorgvc.multilanguagespring.config.Filter;
+package com.victorgvc.multilanguagespring.auth.Filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
