@@ -1,7 +1,7 @@
-package com.victorgvc.multilanguagespring.config;
+package com.victorgvc.multilanguagespring.auth.config;
 
-import com.victorgvc.multilanguagespring.config.Filter.CustomAuthenticationFilter;
-import com.victorgvc.multilanguagespring.config.Filter.CustomAuthorizationFilter;
+import com.victorgvc.multilanguagespring.auth.Filter.CustomAuthenticationFilter;
+import com.victorgvc.multilanguagespring.auth.Filter.CustomAuthorizationFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
