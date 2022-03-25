@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -52,6 +54,7 @@ public class User {
     @Column(name = "us_photo")
     private String photo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", orphanRemoval=true,cascade = CascadeType.PERSIST)
     private List<Project> projects;
 

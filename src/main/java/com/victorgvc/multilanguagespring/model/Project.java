@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,6 +45,7 @@ public class Project {
     @Column(name = "pro_link")
     private String link;
 
+    @JsonBackReference
     @JoinColumn(name = "pro_user")
     @ManyToOne
     private User user;

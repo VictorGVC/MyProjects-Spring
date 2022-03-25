@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -38,6 +40,7 @@ public class Item {
     @Column(name = "it_image")
     private String image;
     
+    @JsonBackReference
     @JoinColumn(name = "it_category")
     @ManyToOne
     private Category category;
