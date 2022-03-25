@@ -60,4 +60,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
+
+    @Override
+    public void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException authentication) throws IOException {
+        response.setStatus(401);
+        response.getWriter().println("Invalid credentials!");
+    }
 }
