@@ -1,7 +1,5 @@
 package com.victorgvc.multilanguagespring.service.implementation;
 
-import static org.springframework.http.HttpStatus.CREATED;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +11,7 @@ import com.victorgvc.multilanguagespring.service.UserService;
 import com.victorgvc.multilanguagespring.utils.Validations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class UserServiceImp implements UserService, UserDetailsService {
 
     private UserRepository repository;
@@ -34,6 +32,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         this.repository = repository;
     }
 
+    @Transactional
     @Override
     public ResponseEntity<?> save(User user) {
         try {
@@ -52,9 +51,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
             repository.save(user);
 
-            return new ResponseEntity<>("User saved!", CREATED);
+            return new ResponseEntity<String>("User saved!", HttpStatus.valueOf(200));
         } catch (Exception e) {
-            return new ResponseEntity<>(e, CREATED);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.valueOf(400));
         }
     }
 
