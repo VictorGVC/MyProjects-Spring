@@ -2,6 +2,7 @@ package com.victorgvc.multilanguagespring.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -40,7 +43,7 @@ public class User {
     private String password;
 
     @Column(name = "us_admin")
-    private Boolean admin;
+    private Boolean admin = false;
 
     @Column(name = "us_github")
     private String github;
@@ -51,7 +54,8 @@ public class User {
     @Column(name = "us_photo")
     private String photo;
 
-    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", orphanRemoval=true,cascade = CascadeType.PERSIST)
     private List<Project> projects;
 
     @Transient

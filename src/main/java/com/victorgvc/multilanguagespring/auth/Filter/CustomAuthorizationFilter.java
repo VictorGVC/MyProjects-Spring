@@ -1,4 +1,4 @@
-package com.victorgvc.multilanguagespring.config.Filter;
+package com.victorgvc.multilanguagespring.auth.Filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter{
                     filterChain.doFilter(request, response);
                 }
             } catch (Exception e) {
-                logger.error(e);
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setStatus(401);
+                response.getWriter().println(e);
             }
         }
     }
