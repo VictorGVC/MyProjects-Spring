@@ -2,12 +2,14 @@ package com.victorgvc.multilanguagespring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.victorgvc.multilanguagespring.model.User;
 import com.victorgvc.multilanguagespring.service.UserService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,4 +39,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/{id}")
+    public User getById(@PathVariable (value = "id") int id) {
+        try {
+            Optional<User> user = service.getById(id);
+            if(user.isPresent())
+                return user.get();
+            else
+                return new User(500, "User do not found");
+        } catch (Exception e) {
+            return new User(500, e.getMessage());
+        }
+    }
 }
