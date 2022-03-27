@@ -48,20 +48,29 @@ public class ProjectServiceImp implements ProjectService {
 
     @Override
     public List<Project> get() throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            return projectRepository.findAll();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
     public Optional<Project> getById(int id) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            return projectRepository.findById(id);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
     public void delete(int id) throws Exception {
-        // TODO Auto-generated method stub
-        
+        try {
+            projectRepository.deleteById(id);
+        } catch (Exception e) {
+            throw e;
+        }
     }
     
 }
