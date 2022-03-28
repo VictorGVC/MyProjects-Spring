@@ -36,8 +36,9 @@ public class Validations {
             Algorithm algorithm = Algorithm.HMAC256("secret".getBytes()); // TODO remember to use heroku secret
             JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT decodedJWT = verifier.verify(token);
+            
             if(!user.getUsername().equals(decodedJWT.getSubject()))
-                throw new Exception("Invalid user");
+                throw new Exception(msg);
         } else {
             throw new Exception("Invalid JWT token");
         }

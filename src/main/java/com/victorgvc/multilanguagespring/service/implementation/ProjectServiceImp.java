@@ -30,15 +30,24 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<?> save(Project project) {
+    public ResponseEntity<?> save(Project project, String authorization) {
         try {
             Validations.notExists(project.getName(), "Empty name");
             Validations.notExists(project.getUser(), "Invalid user");
+            Validations.notOwner(project.getUser(), authorization, "Unauthorized");
 
             Optional<User> userFromDB = userRepository.findById(project.getUser().getId());
             if(!userFromDB.isPresent())
                 throw new UsernameNotFoundException("Invalid user");
-
+            
+            if(project.getId() != null)  
+            {
+                Optional<Project> projectFromDB = projectRepository.findById(project.getId());
+                User userFromProject = projectFromDB.get().getUser();
+                Validations.notOwner(userFromProject, authorization, "Unauthorized");
+                project.setUser(userFromProject);
+            }
+                
             projectRepository.save(project);
 
             return new ResponseEntity<String>("Project saved!", HttpStatus.valueOf(200));
