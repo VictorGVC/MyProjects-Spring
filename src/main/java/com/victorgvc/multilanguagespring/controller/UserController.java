@@ -1,7 +1,5 @@
 package com.victorgvc.multilanguagespring.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.victorgvc.multilanguagespring.model.User;
@@ -31,13 +29,11 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public List<?> get() {
+    public Object get() {
         try {
             return service.get();
         } catch (Exception e) {
-            List<ResponseEntity<String>> error = new ArrayList<>();
-            error.add(new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500)));
-            return error;
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 
