@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,8 +24,8 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/project")
-    public ResponseEntity<?> save(Project project) {
-        return service.save(project);
+    public ResponseEntity<?> save(@RequestHeader("Authorization") String authorization, Project project) {
+        return service.save(project, authorization);
     }
 
     @GetMapping("/project")
@@ -46,5 +48,16 @@ public class ProjectController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
         }
+    }
+
+    @PutMapping("/project/{id}")
+    public Object save(@RequestHeader("Authorization") String authorization, @PathVariable (value = "id") int id, Project project) {
+        try {
+            project.setId(id);
+            return service.save(project, authorization); 
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
+        }
+        
     }
 }
