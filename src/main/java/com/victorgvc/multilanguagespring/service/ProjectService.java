@@ -8,7 +8,7 @@ import com.victorgvc.multilanguagespring.model.Project;
 import org.springframework.http.ResponseEntity;
 
 public interface ProjectService {
-    ResponseEntity<?> save(Project project);
+    ResponseEntity<?> save(Project project, String authorization);
     List<Project> get() throws Exception;
     Optional<Project> getById(int id) throws Exception;
     void delete(int id) throws Exception;
