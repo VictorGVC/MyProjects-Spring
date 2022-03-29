@@ -41,20 +41,29 @@ public class CategoryServiceImp implements CategoryService{
 
     @Override
     public List<Category> get() throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            return repository.findAll();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
     public Optional<Category> getById(int id) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            return repository.findById(id);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
-    public void delete(int id) throws Exception {
-        // TODO Auto-generated method stub
-        
+    public void delete(int id) throws Exception{
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            throw e;
+        }
     }
     
 }
