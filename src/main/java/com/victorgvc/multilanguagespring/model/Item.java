@@ -16,16 +16,14 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "category_item", schema = "public")
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
