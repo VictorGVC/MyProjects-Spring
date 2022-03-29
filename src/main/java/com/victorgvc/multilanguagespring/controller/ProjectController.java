@@ -61,7 +61,7 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/project/{id}")
     public ResponseEntity<?> delete(@PathVariable (value = "id") int id) {
         try {
             service.delete(id); 
