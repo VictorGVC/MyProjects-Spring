@@ -27,7 +27,7 @@ public class Validations {
     public static void exists(Object obj, String msg) throws Exception{
 
         if(obj != null)
-            throw new Exception(msg);
+            throw new RuntimeException(msg);
     }
 
     public static void notOwner(User user, String authorizationHeader, String msg) throws Exception{
@@ -38,9 +38,9 @@ public class Validations {
             DecodedJWT decodedJWT = verifier.verify(token);
             
             if(!user.getUsername().equals(decodedJWT.getSubject()))
-                throw new Exception(msg);
+                throw new RuntimeException(msg);
         } else {
-            throw new Exception("Invalid JWT token");
+            throw new RuntimeException("Invalid JWT token");
         }
     }
 }

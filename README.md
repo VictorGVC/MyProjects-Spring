@@ -7,7 +7,7 @@ This is the Spring boot backend of the multilanguage project, whose main objecti
 ## Features 🌟
 
 - [x] `` Users``
-- [ ] ``Technologies``
+- [x] ``Technologies``
 - [x] ``Projects``
 
 ## Technologies 🚀
