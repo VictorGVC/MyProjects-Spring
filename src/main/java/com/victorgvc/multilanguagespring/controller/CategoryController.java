@@ -70,11 +70,21 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/addItem")
+    @PostMapping("/item")
     public ResponseEntity<?> addItem(Item item) {
         try {
             service.addItem(item);
             return new ResponseEntity<>("Item saved!", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
+        }
+    }
+
+    @DeleteMapping("/item/{id}")
+    public ResponseEntity<?> removeItem(@PathVariable (value = "id") int id) {
+        try {
+            service.removeItem(id); 
+            return new ResponseEntity<>("Item "+id+" removed!", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
         }
