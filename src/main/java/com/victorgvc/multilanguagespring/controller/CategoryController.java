@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/category")
 public class CategoryController {
 
     private CategoryService service;
@@ -23,12 +25,12 @@ public class CategoryController {
         this.service = service;
     }
 
-    @PostMapping(value = "/category")
+    @PostMapping
     public ResponseEntity<?> save(Category category) {
         return service.save(category);
     }
 
-    @GetMapping("/category")
+    @GetMapping
     public Object get() {
         try {
             return service.get();
@@ -37,7 +39,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/{id}")
     public Object getById(@PathVariable (value = "id") int id) {
         try {
 
@@ -51,13 +53,13 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/category/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> save(@PathVariable (value = "id") int id, Category category) {
         category.setId(id); 
         return service.save(category); 
     }
 
-    @DeleteMapping("/category/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable (value = "id") int id) {
         try {
             service.delete(id); 
