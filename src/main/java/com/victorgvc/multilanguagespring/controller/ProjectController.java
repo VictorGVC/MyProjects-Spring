@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
@@ -72,4 +73,17 @@ public class ProjectController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
+
+    @PostMapping("/{projectId}/item/{itemId}")
+    public ResponseEntity<?> addItem(@RequestHeader("Authorization") String authorization, 
+                                    @PathVariable (value = "projectId") int projectId, 
+                                    @PathVariable (value = "itemId") int itemId) {
+        try {
+            service.addItem(projectId, itemId, authorization);
+            return new ResponseEntity<>("Item "+itemId+" added!", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
+        }
+    }
+    
 }

@@ -3,8 +3,10 @@ package com.victorgvc.multilanguagespring.service.implementation;
 import java.util.List;
 import java.util.Optional;
 
+import com.victorgvc.multilanguagespring.model.Item;
 import com.victorgvc.multilanguagespring.model.Project;
 import com.victorgvc.multilanguagespring.model.User;
+import com.victorgvc.multilanguagespring.repository.ItemRepository;
 import com.victorgvc.multilanguagespring.repository.ProjectRepository;
 import com.victorgvc.multilanguagespring.repository.UserRepository;
 import com.victorgvc.multilanguagespring.service.ProjectService;
@@ -21,12 +23,14 @@ public class ProjectServiceImp implements ProjectService {
 
     private ProjectRepository projectRepository;
     private UserRepository userRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    public ProjectServiceImp(ProjectRepository projectRepository, UserRepository userRepository) {
+    public ProjectServiceImp(ProjectRepository projectRepository, UserRepository userRepository, ItemRepository itemRepository) {
         super();
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -82,6 +86,30 @@ public class ProjectServiceImp implements ProjectService {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    @Override
+    public void addItem(int projectId, int itemId, String authorization) throws Exception {
+        try {
+            Optional<Project> project = projectRepository.findById(projectId);
+            Optional<Item> item = itemRepository.findById(itemId);
+
+            Validations.notPresent(project, "Invalid project id");
+            Validations.notPresent(item, "Invalid item id");
+            Validations.notOwner(project.get().getUser(), authorization, "Unauthorized");
+
+            item.get().getProjects().add(project.get());
+
+            itemRepository.save(item.get());
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public void removeItem(int projectId, int itemId, String authorization) throws Exception {
+        // TODO Auto-generated method stub
+        
     }
     
 }

@@ -12,4 +12,6 @@ public interface ProjectService {
     List<Project> get() throws Exception;
     Optional<Project> getById(int id) throws Exception;
     void delete(int id) throws Exception;
+    void addItem(int projectId, int itemId, String authorization) throws Exception;
+    void removeItem(int projectId, int itemId, String authorization) throws Exception;
 }
