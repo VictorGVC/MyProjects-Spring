@@ -2,6 +2,7 @@ package com.victorgvc.multilanguagespring.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,6 +40,6 @@ public class Category {
     private String description;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", orphanRemoval = true,cascade = CascadeType.PERSIST)
     private List<Item> items;
 }

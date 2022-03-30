@@ -3,6 +3,7 @@ package com.victorgvc.multilanguagespring.controller;
 import java.util.Optional;
 
 import com.victorgvc.multilanguagespring.model.Category;
+import com.victorgvc.multilanguagespring.model.Item;
 import com.victorgvc.multilanguagespring.service.CategoryService;
 
 import org.springframework.http.HttpStatus;
@@ -64,6 +65,16 @@ public class CategoryController {
         try {
             service.delete(id); 
             return new ResponseEntity<>("Category "+id+" deleted!", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
+        }
+    }
+
+    @PostMapping("/addItem")
+    public ResponseEntity<?> addItem(Item item) {
+        try {
+            service.addItem(item);
+            return new ResponseEntity<>("Item saved!", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
         }
