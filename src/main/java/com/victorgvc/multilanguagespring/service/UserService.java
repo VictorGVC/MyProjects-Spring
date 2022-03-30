@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
     
-    ResponseEntity<?> save(User user);
+    ResponseEntity<?> save(User user, String authorization);
     List<User> get() throws Exception;
     Optional<User> getById(int id) throws Exception;
     void delete(int id) throws Exception;

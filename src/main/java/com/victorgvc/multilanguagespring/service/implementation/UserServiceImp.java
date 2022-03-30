@@ -34,7 +34,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> save(User user) {
+    public ResponseEntity<?> save(User user, String authorization) {
         try {
             Validations.notExists(user.getUsername(), "Empty username");
             Validations.notExists(user.getPassword(), "Empty password");
@@ -44,8 +44,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
             User userFromDB = repository.findUserByUsername(user.getUsername());
 
-            if (user.getId() == null)
+            if (user.getId() == null) {
                 Validations.exists(userFromDB, "User already exists");
+            } else {
+                Validations.notOwner(userFromDB, authorization, "Unauthorized");
+            }
+            
             user.setPassword(encryptPassword(user.getPassword()));
             user.setConfirmPassword("");
 
