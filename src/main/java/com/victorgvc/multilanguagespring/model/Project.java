@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,6 +52,7 @@ public class Project {
     @ManyToOne
     private User user;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "projects")
     private List<Item> items;
 }

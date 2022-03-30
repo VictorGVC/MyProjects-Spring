@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
+@RequestMapping("/project")
 public class ProjectController {
     
     private ProjectService service;
@@ -24,12 +27,12 @@ public class ProjectController {
         this.service = service;
     }
 
-    @PostMapping(value = "/project")
+    @PostMapping
     public ResponseEntity<?> save(@RequestHeader("Authorization") String authorization, Project project) {
         return service.save(project, authorization);
     }
 
-    @GetMapping("/project")
+    @GetMapping
     public Object get() {
         try {
             return service.get();
@@ -38,7 +41,7 @@ public class ProjectController {
         }
     }
 
-    @GetMapping("/project/{id}")
+    @GetMapping("/{id}")
     public Object getById(@PathVariable (value = "id") int id) {
         try {
             Optional<Project> project = service.getById(id);
@@ -51,7 +54,7 @@ public class ProjectController {
         }
     }
 
-    @PutMapping("/project/{id}")
+    @PutMapping("/{id}")
     public Object save(@RequestHeader("Authorization") String authorization, @PathVariable (value = "id") int id, Project project) {
         try {
             project.setId(id);
@@ -61,7 +64,7 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping("/project/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable (value = "id") int id) {
         try {
             service.delete(id); 
@@ -70,4 +73,17 @@ public class ProjectController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
+
+    @PostMapping("/{projectId}/item/{itemId}")
+    public ResponseEntity<?> addItem(@RequestHeader("Authorization") String authorization, 
+                                    @PathVariable (value = "projectId") int projectId, 
+                                    @PathVariable (value = "itemId") int itemId) {
+        try {
+            service.addItem(projectId, itemId, authorization);
+            return new ResponseEntity<>("Item "+itemId+" added!", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(500));
+        }
+    }
+    
 }

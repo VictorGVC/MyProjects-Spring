@@ -1,5 +1,7 @@
 package com.victorgvc.multilanguagespring.utils;
 
+import java.util.Optional;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,6 +15,11 @@ public class Validations {
         if(obj == null)
             throw new RuntimeException(msg);
         if(obj instanceof String && ((String)obj).isEmpty())
+            throw new RuntimeException(msg);
+    }
+
+    public static void notPresent(Optional<?> obj, String msg) throws RuntimeException{
+        if(!obj.isPresent())
             throw new RuntimeException(msg);
     }
 

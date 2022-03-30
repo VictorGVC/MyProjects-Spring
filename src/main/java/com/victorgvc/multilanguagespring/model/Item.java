@@ -46,6 +46,7 @@ public class Item {
     @ManyToOne
     private Category category;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "project_item", 
         joinColumns = @JoinColumn(name = "pi_item"), 

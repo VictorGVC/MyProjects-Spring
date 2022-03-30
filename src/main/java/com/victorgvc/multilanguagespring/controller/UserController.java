@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
     
     private UserService service;
@@ -23,12 +26,12 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping(value = "/signup")
+    @PostMapping
     public ResponseEntity<?> save(User user) {
-        return service.save(user);
+        return service.save(user, "");
     }
 
-    @GetMapping("/user")
+    @GetMapping
     public Object get() {
         try {
             return service.get();
@@ -37,7 +40,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public Object getById(@PathVariable (value = "id") int id) {
         try {
             Optional<User> user = service.getById(id);
@@ -50,13 +53,13 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/{id}")
-    public ResponseEntity<?> save(@PathVariable (value = "id") int id, User user) {
-        user.setId(id); // TODO remember verify if is the owner of the data to change it
-        return service.save(user); 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> save(@RequestHeader("Authorization") String authorization, @PathVariable (value = "id") int id, User user) {
+        user.setId(id);
+        return service.save(user, authorization); 
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable (value = "id") int id) {
         try {
             service.delete(id); 
