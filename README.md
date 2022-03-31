@@ -1,4 +1,4 @@
-<h1 align="center">Multilanguage - Spring.js</h1>
+<h1 align="center">Multilanguage - Spring</h1>
 
 ## About 🎯
 
