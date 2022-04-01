@@ -1,4 +1,4 @@
-package com.victorgvc.multilanguagespring.auth.Filter;
+package com.victorgvc.multilanguagespring.auth;
 
 import java.io.IOException;
 import java.util.Date;
