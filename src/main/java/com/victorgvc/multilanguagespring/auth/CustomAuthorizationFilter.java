@@ -1,4 +1,4 @@
-package com.victorgvc.multilanguagespring.auth.Filter;
+package com.victorgvc.multilanguagespring.auth;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,9 +22,18 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter{
 
+    private static final String[] AUTH_WHITELIST = {
+        // -- Swagger UI v3 (OpenAPI)
+        "/v3/api-docs",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        // other public endpoints of your API may be appended to this array
+        "/login"
+    };
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getServletPath().equals("/login")) {
+        if(Arrays.stream(AUTH_WHITELIST).anyMatch(request.getServletPath()::equalsIgnoreCase)) {
             filterChain.doFilter(request, response);
         } else {
             try {
