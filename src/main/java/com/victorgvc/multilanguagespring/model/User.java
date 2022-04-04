@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,17 +31,25 @@ import lombok.ToString;
 public class User {
 
     @Id
+    @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "us_id")
     private Integer id;
 
+    @Schema(required = true, example = "Example_name")
     @Column(name = "us_username")
     private String username;
-
+    
+    @Schema(required = true, example = "Example_password")
     @Column(name = "us_password")
     private String password;
+    
+    @Transient
+    @Schema(required = true, example = "Example_password")
+    private String confirmPassword;
 
     @Column(name = "us_admin")
+    @Schema(hidden = true)
     private Boolean admin = false;
 
     @Column(name = "us_github")
@@ -53,9 +62,7 @@ public class User {
     private String photo;
 
     @JsonManagedReference
+    @Schema(hidden = true)
     @OneToMany(mappedBy = "user", orphanRemoval=true,cascade = CascadeType.PERSIST)
     private List<Project> projects;
-
-    @Transient
-    private String confirmPassword;
 }
