@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,9 +33,11 @@ public class Project {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(hidden = true)
     @Column(name = "pro_id")
     private Integer id;
 
+    @Schema(required = true, example = "Example_name")
     @Column(name = "pro_name")
     private String name;
 
@@ -53,6 +56,7 @@ public class Project {
     private User user;
 
     @JsonManagedReference
+    @Schema(hidden = true)
     @ManyToMany(mappedBy = "projects")
     private List<Item> items;
 }
