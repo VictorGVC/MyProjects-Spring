@@ -16,6 +16,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 
 @RestController
 @RequestMapping("/project")
@@ -27,11 +35,23 @@ public class ProjectController {
         this.service = service;
     }
 
+    // Notations for documentation
+    @Operation(summary = "Save a new project", security = { @SecurityRequirement(name = "Bearer")})
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Project saved!",
+            content = @Content(schema = @Schema( type = "string", example = "Project saved!"))),
+        @ApiResponse(responseCode = "400", description = "Client side exception",
+            content = @Content(schema = @Schema( type = "string", example = "Empty name")))})
+
+    // Save a new project
     @PostMapping
-    public ResponseEntity<?> save(@RequestHeader("Authorization") String authorization, Project project) {
+    public ResponseEntity<?> save(@RequestHeader("Authorization") String authorization, 
+                                    @Parameter(description="Password and confirmPassword fields have to be the same!", 
+                                    required=true, schema=@Schema(implementation = Project.class))Project project) {
         return service.save(project, authorization);
     }
 
+    // Get all projects
     @GetMapping
     public Object get() {
         try {
@@ -41,6 +61,7 @@ public class ProjectController {
         }
     }
 
+    // Get project by id
     @GetMapping("/{id}")
     public Object getById(@PathVariable (value = "id") int id) {
         try {
@@ -54,6 +75,7 @@ public class ProjectController {
         }
     }
 
+    // Update project
     @PutMapping("/{id}")
     public Object save(@RequestHeader("Authorization") String authorization, @PathVariable (value = "id") int id, Project project) {
         try {
@@ -64,6 +86,7 @@ public class ProjectController {
         }
     }
 
+    // Delete project
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable (value = "id") int id) {
         try {
@@ -74,6 +97,7 @@ public class ProjectController {
         }
     }
 
+    // Add utem to project
     @PostMapping("/{projectId}/item/{itemId}")
     public ResponseEntity<?> addItem(@RequestHeader("Authorization") String authorization, 
                                     @PathVariable (value = "projectId") int projectId, 
