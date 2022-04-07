@@ -86,6 +86,14 @@ public class ProjectController {
         }
     }
 
+    @Operation(summary = "Delete project by id", description = "Only admin users can use this endpoint", security = { @SecurityRequirement(name = "Bearer")})
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Project deleted!",
+            content = @Content(schema = @Schema( type = "string", example = "Project 1 deleted!"))),
+        @ApiResponse(responseCode = "500", description = "Server side exception",
+            content = @Content)
+    })
+
     // Delete project
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable (value = "id") int id) {
