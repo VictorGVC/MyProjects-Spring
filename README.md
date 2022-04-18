@@ -1,8 +1,8 @@
-<h1 align="center">Multilanguage - Spring</h1>
+<h1 align="center">MyProjects - Spring</h1>
 
 ## About 🎯
 
-This is the Spring boot backend of the multilanguage project, whose main objective is to perform basic CRUD operations (Create, Read, Update and Delete) of ``users``, ``projects`` and ``technologies``. As a differential, it will be possible for the frontend to choose in which language the backend should run.
+This is the Spring boot backend of the My Projects app, whose main objective is to perform basic CRUD operations (Create, Read, Update and Delete) of ``users``, ``projects`` and ``technologies``. As a differential, it will be possible for the frontend to choose in which language the backend should run.
 
 ## Features 🌟
 
